@@ -1,0 +1,60 @@
+<dataConfig>
+    <dataSource name="marecstream"
+                type="ContentStreamDataSource"
+                encoding="UTF-8"
+    />
+    <document>
+                <entity name="patent"
+                        processor="XPathEntityProcessor"
+			rootEntity="true"
+			datasource="marecstream"
+                        forEach="/patent-document"
+                >
+
+                    <field column="id" xpath="/patent-document/@ucid" />
+                    <field column="family_id" xpath="/patent-document/@family-id" />
+
+                    <field column="orig_country" xpath="/patent-document/bibliographic-data/publication-reference/document-id[@format='original']/country" />
+                    <field column="orig_doc_number" xpath="/patent-document/bibliographic-data/publication-reference/document-id[@format='original']/doc-number" />
+                    <field column="orig_kind" xpath="/patent-document/bibliographic-data/publication-reference/document-id[@format='original']/kind" />
+                    <field column="orig_date" xpath="/patent-document/bibliographic-data/publication-reference/document-id[@format='original']/date" />
+
+                    <field column="epo_country" xpath="/patent-document/bibliographic-data/application-reference/document-id[@format='epo']/country" />
+                    <field column="epo_doc_number" xpath="/patent-document/bibliographic-data/application-reference/document-id[@format='epo']/doc-number" />
+                    <field column="epo_kind" xpath="/patent-document/bibliographic-data/application-reference/document-id[@format='epo']/kind" />
+                    <field column="epo_date" xpath="/patent-document/bibliographic-data/application-reference/document-id[@format='epo']/date" />
+
+                    <field column="priority_claim_epo_ucid" xpath="/patent-document/bibliographic-data/priority-claims/priority-claim/@ucid" />
+                    <field column="priority_claim_epo_country" xpath="/patent-document/bibliographic-data/priority-claims/priority-claim/document-id[@format='epo']/country" />
+                    <field column="priority_claim_epo_doc_number" xpath="/patent-document/bibliographic-data/priority-claims/priority-claim/document-id[@format='epo']/doc-number" />
+                    <field column="priority_claim_epo_kind" xpath="/patent-document/bibliographic-data/priority-claims/priority-claim/document-id[@format='epo']/kind" />
+                    <field column="priority_claim_epo_date" xpath="/patent-document/bibliographic-data/priority-claims/priority-claim/document-id[@format='epo']/date" />
+
+                    <!-- <field column="abstract_en" xpath="/patent-document/abstract[@lang='EN']/*" />  * wildcard is not working-->
+                    <field column="abstract_en" xpath="/patent-document/abstract[@lang='EN']/p" />
+                    <field column="abstract_de" xpath="/patent-document/abstract[@lang='DE']/p" />
+                    <field column="abstract_fr" xpath="/patent-document/abstract[@lang='FR']/p" />
+
+                    <field column="description_en" xpath="/patent-document/description[@lang='EN']/p" />
+                    <field column="description_de" xpath="/patent-document/description[@lang='DE']/p" />
+                    <field column="description_fr" xpath="/patent-document/description[@lang='FR']/p" />
+
+                    <field column="claims_en" xpath="/patent-document/claims[@lang='EN']/p" />
+                    <field column="claims_de" xpath="/patent-document/claims[@lang='DE']/p" />
+                    <field column="claims_fr" xpath="/patent-document/claims[@lang='FR']/p" />
+
+                    <field column="title_en" xpath="/patent-document/bibliographic-data/technical-data/invention-title[@lang='EN']" />
+                    <field column="title_de" xpath="/patent-document/bibliographic-data/technical-data/invention-title[@lang='DE']" />
+                    <field column="title_fr" xpath="/patent-document/bibliographic-data/technical-data/invention-title[@lang='FR']" />
+
+                    <field column="ipc_main" xpath="/patent-document/bibliographic-data/technical-data/classification-ipc/main-classification" />
+                    <field column="ipc_further" xpath="/patent-document/bibliographic-data/technical-data/classification-ipc/further-classification" />
+                    <field column="ipcr" xpath="/patent-document/bibliographic-data/technical-data/classifications-ipcr/classification-ipc" />
+                    <field column="ecla" xpath="/patent-document/bibliographic-data/technical-data/classification-ecla/classification-symbol" />
+
+                    <field column="citations" xpath="/patent-document/bibliographic-data/technical-data/citations/patent-citations/patcit/@ucid" />
+                    <field column="applicants_name" xpath="/patent-document/bibliographic-data/parties/applicants/applicant[@format='epo']/addressbook/name" />
+                    <field column="inventors_name" xpath="/patent-document/bibliographic-data/parties/inventors/inventor[@format='epo']/addressbook/name" />
+                </entity>
+    </document>
+</dataConfig>
